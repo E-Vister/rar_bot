@@ -22,14 +22,12 @@ bot.on('message', (msg) => { // React on the messages
     if(msg.content.toLowerCase() === 'bot prefix') prefix_manager.view(bot, msg, [], database);
     if(msg.content.toLowerCase() === 'set default prefix') prefix_manager.setDefault(bot, msg, [], database);
     if(!msg.content.startsWith(prefix)) return;
-
     const commandBody = msg.content.slice(prefix.length);
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
 
     for (let cname in commands){
         if (command.startsWith(cname)){
-            console.log(cname);
             commands[cname].run(bot, msg, args, database);
         }
     }
