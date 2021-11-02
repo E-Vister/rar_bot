@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 node_modules
 token.txt
 database.json
 log.txt
 rar.jpg
+=======
+node_modules
+token.txt
+database.json
+log.txt
+rar.jpg
+>>>>>>> origin/main
 .idea
