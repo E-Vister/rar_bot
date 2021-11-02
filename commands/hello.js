@@ -1,3 +1,3 @@
-module.exports.run = (bot, mess) => {
-    mess.reply("Привет!");
+module.exports.run = (bot, msg) => {
+    msg.reply("Привет!");
 }

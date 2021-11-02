@@ -1,31 +1,23 @@
 const fs = require('fs');
-const config = require('C:/Users/Bausiuk/Desktop/Projects/RaR Bot/json/config.json');
-const prefix = config.prefix;
+const loger = require('C:/Users/Bausiuk/Documents/Github/rar_bot/plugins/loger.js');
 
-function checkZero(value){
-    return (value < 10)?('0' + value):(value)
-}
+module.exports.run = (bot, msg, args, database) => {
+    let prefix = database.getGuildData(msg.guild).prefix;
 
-function formatData(data){
-    return `${checkZero(data.getDate())}.${checkZero(data.getMonth())}.${data.getFullYear()} ` +
-        `${checkZero(data.getHours())}:${checkZero(data.getMinutes())}:${checkZero(data.getSeconds())}`;
-}
-
-module.exports.run = (bot, mess, args) => {
-    if (mess.channel.name === 'general') {
-        mess.channel.send('You cannot delete the general channel!');
+    if (msg.channel.name === 'general') {
+        msg.channel.send('You cannot delete the general channel!');
         return;
     }
 
-    if (args[0] === mess.channel.name){
-        let formatedTime = formatData(new Date())
-        let logMessage = `${formatedTime} - "${mess.author.username}" (${mess.author.id}) deleted text channel -> "${mess.channel.name}"\n`;
+    if (args[0] === msg.channel.name){
+        let formatedTime = loger.formatData(new Date())
+        let logmsgage = `${formatedTime} - "${msg.author.username}" (${msg.author.id}) deleted text channel -> "${msg.channel.name}"\n`;
 
-        fs.appendFileSync('./log.txt', logMessage);
+        fs.appendFileSync('./log.txt', logmsgage);
 
-        mess.channel.delete();
+        msg.channel.delete();
     }
     else {
-        mess.channel.send(`Enter "${prefix}delete ${mess.channel.name}" to delete this channel`);
+        msg.channel.send(`Enter "${prefix}delete ${msg.channel.name}" to delete this channel`);
     }
 }

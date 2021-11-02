@@ -1,22 +1,30 @@
-module.exports.run = (bot, mess) => {
-    mess.channel.send(`
+const fs = require("fs");
+const loger = require('C:/Users/Bausiuk/Documents/Github/rar_bot/plugins/loger.js');
+
+module.exports.run = (bot, msg) => {
+    let formatedTime = loger.formatData(new Date())
+    let logmsgage = `${formatedTime} - "${msg.author.username}" (${msg.author.id}) viewed text channel info -> "${msg.channel.name}"\n`;
+
+    fs.appendFileSync('./log.txt', logmsgage);
+
+    msg.channel.send(`
 ======Channel=======
-Id: ${mess.channel.id}
-Client: ${mess.channel.client}
-Created at: ${mess.channel.createdAt}
+Id: ${msg.channel.id}
+Client: ${msg.channel.client}
+Created at: ${msg.channel.createdAt}
 ===================
     
 ====ServerChannel=====
-Name: ${mess.channel.name}
-Type: ${mess.channel.type}
-Position: ${mess.channel.position}
-PermissionOverwrites: ${mess.channel.permissionOverwrites}
+Name: ${msg.channel.name}
+Type: ${msg.channel.type}
+Position: ${msg.channel.position}
+PermissionOverwrites: ${msg.channel.permissionOverwrites}
 ===================
 
 =====TextChannel=====
-Topic: ${mess.channel.topic}
-Last Message: ${mess.channel.lastMessage}
-Type: ${mess.channel.type}
+Topic: ${msg.channel.topic}
+Last msgage: ${msg.channel.lastmsgage}
+Type: ${msg.channel.type}
 ===================
     `);
 }

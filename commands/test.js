@@ -1,3 +1,3 @@
-module.exports.run = (bot, mess) => {
-    mess.channel.send('test')
+module.exports.run = (bot, msg) => {
+    msg.channel.send('test')
 }
