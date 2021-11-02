@@ -2,10 +2,9 @@ const fs = require("fs");
 const loger = require('C:/Users/Bausiuk/Documents/Github/rar_bot/plugins/loger.js');
 
 module.exports.run = (bot, msg) => {
-    let formatedTime = loger.formatData(new Date())
-    let logmsgage = `${formatedTime} - "${msg.author.username}" (${msg.author.id}) viewed text channel info -> "${msg.channel.name}"\n`;
+    let logMessage = `viewed text channel info -> "${msg.channel.name}"`;
 
-    fs.appendFileSync('./log.txt', logmsgage);
+    loger.log(logMessage, msg);
 
     msg.channel.send(`
 ======Channel=======

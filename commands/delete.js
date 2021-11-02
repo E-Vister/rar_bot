@@ -10,10 +10,9 @@ module.exports.run = (bot, msg, args, database) => {
     }
 
     if (args[0] === msg.channel.name){
-        let formatedTime = loger.formatData(new Date())
-        let logmsgage = `${formatedTime} - "${msg.author.username}" (${msg.author.id}) deleted text channel -> "${msg.channel.name}"\n`;
+        let logMessage = `deleted text channel -> "${msg.channel.name}"`;
 
-        fs.appendFileSync('./log.txt', logmsgage);
+        loger.log(logMessage, msg);
 
         msg.channel.delete();
     }

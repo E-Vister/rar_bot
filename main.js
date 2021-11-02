@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const database = require('./database');
+const prefix_manager = require('./plugins/prefix_manager');
+const {logError} = require("./plugins/loger");
 
 const bot = new Discord.Client();
 const commands = {};
+
 
 bot.on('ready', () => {
     console.log(`Logged in as ${bot.user.tag}!`);
@@ -16,6 +19,8 @@ bot.on('ready', () => {
 bot.on('message', (msg) => { // React on the messages
     let prefix = database.getGuildData(msg.guild).prefix;
     if(msg.author.bot) return;
+    if(msg.content.toLowerCase() === 'bot prefix') prefix_manager.view(bot, msg, [], database);
+    if(msg.content.toLowerCase() === 'set default prefix') prefix_manager.setDefault(bot, msg, [], database);
     if(!msg.content.startsWith(prefix)) return;
 
     const commandBody = msg.content.slice(prefix.length);
@@ -24,6 +29,7 @@ bot.on('message', (msg) => { // React on the messages
 
     for (let cname in commands){
         if (command.startsWith(cname)){
+            console.log(cname);
             commands[cname].run(bot, msg, args, database);
         }
     }
@@ -58,3 +64,4 @@ function loadCommands(path) {
 //https://oauth.vk.com/blank.html#access_token=beb3e1f4a9ff137f9cdf7b466239bb69da141b4605f84a70eed8433d47fa32d47271947ae17542b375614&expires_in=0&user_id=678818215
 //user_id=678818215
 //access_token=beb3e1f4a9ff137f9cdf7b466239bb69da141b4605f84a70eed8433d47fa32d47271947ae17542b375614
+
