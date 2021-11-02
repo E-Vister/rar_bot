@@ -1,0 +1,19 @@
+{
+  "name": "rar-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot for \"Russian Anime Review Server\"",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/E-Vister/rar_bot.git"
+  },
+  "author": "Vister",
+  "license": "ISC"
+}
