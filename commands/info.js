@@ -1,12 +1,9 @@
-const fs = require("fs");
-const loger = require('C:/Users/Bausiuk/Documents/Github/rar_bot/plugins/loger.js');
+const logger = require(global.path + '/plugins/logger.js');
 
-module.exports.run = (bot, msg) => {
+module.exports.run = async (bot, msg, args, database) => {
     let logMessage = `viewed text channel info -> "${msg.channel.name}"`;
 
-    loger.log(logMessage, msg);
-
-    msg.channel.send(`
+    await msg.channel.send(`
 ======Channel=======
 Id: ${msg.channel.id}
 Client: ${msg.channel.client}
@@ -22,8 +19,10 @@ PermissionOverwrites: ${msg.channel.permissionOverwrites}
 
 =====TextChannel=====
 Topic: ${msg.channel.topic}
-Last msgage: ${msg.channel.lastmsgage}
+Last message: ${msg.channel.lastMessage}
 Type: ${msg.channel.type}
 ===================
     `);
+
+    logger.log(logMessage, {msg, database});
 }

@@ -1,3 +1,3 @@
-module.exports.run = (bot, msg) => {
+module.exports.run = async (bot, msg) => {
     msg.channel.send('test')
 }
