@@ -3,10 +3,11 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const database = require('./database');
 const prefix_manager = require('./plugins/prefix_manager');
+const command_manager = require('./plugins/commands_manager');
 
 const bot = new Discord.Client();
-const commands = {};
 
+let commands = {};
 let databaseLoad = false;
 
 
@@ -58,13 +59,11 @@ fs.readFile('./token.txt', (err, data) => {
 function loadCommands(path) {
     console.log('Loading commands...');
 
-    const files = fs.readdirSync(path).filter(f => f.endsWith('.js'));
+    commands = command_manager.get(path);
 
-    files.forEach(file => {
-        const cname = file.toLowerCase().substring(0, file.length - 3);
-        commands[cname] = require(path + '/' + file);
-        console.log(`* ${file} loaded`);
-    });
+    for (let key of Object.keys(commands)){
+        console.log(`* ${key} loaded`);
+    }
 
     console.log("All commands successfully loaded!");
 }

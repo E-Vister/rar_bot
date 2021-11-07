@@ -19,3 +19,8 @@ module.exports.run = async (bot, msg, args, database) => {
         msg.reply("Logging is enabled!");
     }
 }
+
+module.exports.about = (bot, msg, args, database) => {
+    return `enables logging on the server
+    ${database.getGuildData(msg.guild).prefix}logon`;
+}

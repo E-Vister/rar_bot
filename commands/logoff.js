@@ -11,3 +11,8 @@ module.exports.run = async (bot, msg, args, database) => {
         msg.reply("Logging is disabled!");
     }
 }
+
+module.exports.about = (bot, msg, args, database) => {
+    return `disables logging on the server
+    ${database.getGuildData(msg.guild).prefix}logoff`;
+}

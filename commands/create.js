@@ -20,3 +20,8 @@ module.exports.run = async (bot, msg, args, database) => {
     })
     logger.log(logMessage, {msg, database});
 }
+
+module.exports.about = (bot, msg, args, database) => {
+    return `creating new channel
+    ${database.getGuildData(msg.guild).prefix}create <name> [text/voice]`;
+}

@@ -4,7 +4,7 @@ const channelManager = require(global.path + '/plugins/channel_manager.js');
 module.exports.run = async (bot, msg, args, database) => {
     let prefix = database.getGuildData(msg.guild).prefix;
 
-    if (args[0] === 'general' && args[0] === 'server-logs') {
+    if (args[0] === 'general' || args[0] === 'server-logs') {
         msg.reply('You cannot delete that channel!');
         return;
     }
@@ -26,4 +26,9 @@ module.exports.run = async (bot, msg, args, database) => {
     else {
         msg.channel.send(`Enter "${prefix}delete ${msg.channel.name}" to delete this channel`);
     }
+}
+
+module.exports.about = (bot, msg, args, database) => {
+    return `deleting specified or current channel
+    ${database.getGuildData(msg.guild).prefix}delete <name>`;
 }
