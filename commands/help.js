@@ -2,6 +2,7 @@ const {MessageEmbed} = require("discord.js");
 const commands_manager = require(global.path + '/plugins/commands_manager.js');
 const commands = commands_manager.get();
 //максимум 25 addField
+//сделать перемотку по реакциям
 
 module.exports.run = async (bot, msg, args, database) => {
 

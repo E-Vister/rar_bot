@@ -1,7 +1,7 @@
 const logger = require(global.path + '/plugins/logger.js');
 
 module.exports.run = async (bot, msg, args, database) => {
-    if (args.length < 2) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}create [channel name] [channel type]`);
+    if (args.length < 2) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}create <name> [text/voice]`);
     let type = args.pop();
     if (type !== 'text' && type !== 'voice') return;
     let channelName = args.reduce((previousValue, item) => previousValue + "-" + item);

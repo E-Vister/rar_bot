@@ -1,4 +1,5 @@
 global.path = __dirname;
+
 const Discord = require('discord.js');
 const fs = require('fs');
 const database = require('./database');
@@ -74,3 +75,4 @@ function loadCommands(path) {
 
 //https://gist.github.com/AlexzanderFlores
 //https://github.com/discordjs/discord.js/
+//jashdjhasghjdaghjsd
