@@ -1,2 +1,2 @@
 # rar_bot
-Discord bot for "Russian Anime Review Server"
+Discord bot for "RaR Server"
