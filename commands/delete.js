@@ -4,6 +4,8 @@ const channelManager = require(global.path + '/plugins/channel_manager.js');
 module.exports.run = async (bot, msg, args, database) => {
     let prefix = database.getGuildData(msg.guild).prefix;
 
+    if (!(msg.guild.ownerID === msg.author.id)) return msg.reply('you don\'t have the permissions');
+
     if (args[0] === 'general' || args[0] === 'server-logs') {
         msg.reply('You cannot delete that channel!');
         return;

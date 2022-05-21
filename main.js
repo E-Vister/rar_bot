@@ -25,17 +25,17 @@ bot.on('ready', () => {
 bot.on('message', (msg) => { // React on the messages
     let prefix = database.getGuildData(msg.guild).prefix;
 
-    if(msg.author.bot) return;
-    if(msg.content.toLowerCase() === 'bot prefix') prefix_manager.view(bot, msg, [], database);
-    if(msg.content.toLowerCase() === 'set default prefix') prefix_manager.setDefault(bot, msg, [], database);
-    if(!msg.content.startsWith(prefix)) return;
+    if (msg.author.bot) return;
+    if (msg.content.toLowerCase() === 'bot prefix') prefix_manager.view(bot, msg, [], database);
+    if (msg.content.toLowerCase() === 'set default prefix') prefix_manager.setDefault(bot, msg, [], database);
+    if (!msg.content.startsWith(prefix)) return;
 
     const commandBody = msg.content.slice(prefix.length);
     const args = commandBody.split(' ');
     const command = args.shift().toLowerCase();
 
-    for (let cname in commands){
-        if (command.startsWith(cname)){
+    for (let cname in commands) {
+        if (command.startsWith(cname)) {
             commands[cname].run(bot, msg, args, database);
         }
     }
@@ -44,11 +44,11 @@ bot.on('message', (msg) => { // React on the messages
 process.on("SIGINT", () => {
     console.log('closing...');
     bot.destroy();
-    if(databaseLoad) database.save('./database.json');
+    if (databaseLoad) database.save('./database.json');
 });
 
 fs.readFile('./token.txt', (err, data) => {
-    if(err){
+    if (err) {
         console.error(err);
         process.exit();
     }
@@ -62,17 +62,17 @@ function loadCommands(path) {
 
     commands = command_manager.get(path);
 
-    for (let key of Object.keys(commands)){
+    for (let key of Object.keys(commands)) {
         console.log(`* ${key} loaded`);
     }
 
     console.log("All commands successfully loaded!");
 }
 
-//https://oauth.vk.com/blank.html#access_token=beb3e1f4a9ff137f9cdf7b466239bb69da141b4605f84a70eed8433d47fa32d47271947ae17542b375614&expires_in=0&user_id=678818215
-//user_id=678818215
-//access_token=beb3e1f4a9ff137f9cdf7b466239bb69da141b4605f84a70eed8433d47fa32d47271947ae17542b375614
-
 //https://gist.github.com/AlexzanderFlores
 //https://github.com/discordjs/discord.js/
-//jashdjhasghjdaghjsd
+
+
+//https://anidiots.guide/understanding/roles/
+//https://discord.js.org/#/docs/main/stable/class/RoleManager?scrollTo=create
+//https://discordjs.guide/popular-topics/permissions.html#roles-as-bot-permissions

@@ -3,6 +3,6 @@ module.exports.run = async (bot, msg) => {
 }
 
 module.exports.about = (bot, msg, args, database) => {
-    return `checks the bot's response
+    return `checking the bot's response
     ${database.getGuildData(msg.guild).prefix}ping`;
 }

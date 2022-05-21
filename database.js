@@ -4,7 +4,7 @@ let guilds = {};
 
 const load = (path) => {
     console.log('Attempt to load database...');
-    let data = { guilds: {} };
+    let data = {guilds: {}};
     if (fs.existsSync(path)) {
         data = JSON.parse(fs.readFileSync(path).toString());
     }
@@ -23,8 +23,10 @@ const getGuildData = (guild) => {
         guilds[guild.id] = {
             prefix: "-",
             logging: false,
-            mutedRoleId: null,
-            accounts: {}
+            mutedRole: {
+                id: null,
+            },
+            accounts: {},
         }
     }
     return guilds[guild.id];

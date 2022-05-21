@@ -1,6 +1,8 @@
 const channelManager = require(global.path + '/plugins/channel_manager.js');
 
 module.exports.run = async (bot, msg, args, database) => {
+    if (!(msg.guild.ownerID === msg.author.id)) return msg.reply('you don\'t have the permissions');
+
     if(msg.channel.name === 'server-logs') return;
 
     let channel = channelManager.checkName(msg, 'server-logs');
