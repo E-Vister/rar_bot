@@ -23,6 +23,7 @@ const getGuildData = (guild) => {
         guilds[guild.id] = {
             prefix: "-",
             logging: false,
+            mutedRoleId: null,
             accounts: {}
         }
     }

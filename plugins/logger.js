@@ -6,13 +6,13 @@ function checkZero(value){
     return (value < 10)?('0' + value):(value)
 }
 
-function formatData(data){
+function formatTime(data){
     return `${checkZero(data.getDate())}.${checkZero(data.getMonth())}.${data.getFullYear()} ` +
         `${checkZero(data.getHours())}:${checkZero(data.getMinutes())}:${checkZero(data.getSeconds())}`;
 }
 
 module.exports.log = async (logMessage, data) => {
-    let formatedTime = formatData(new Date());
+    let formatedTime = formatTime(new Date());
     const channel = channelManager.checkName(data.msg, "server-logs");
     const logData = `${formatedTime} - "${data.msg.guild}" - "${data.msg.author.username}" (${data.msg.author.id}) ` + logMessage;
 

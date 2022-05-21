@@ -14,7 +14,7 @@ let databaseLoad = false;
 
 bot.on('ready', () => {
     console.log(`Logged in as ${bot.user.tag}!`);
-    console.log('https://discord.com/oauth2/authorize?client_id=904970118105280542&permissions=8&scope=bot\n');
+    console.log('https://discord.com/api/oauth2/authorize?client_id=977541756436508732&permissions=8&scope=bot\n');
 
     database.load('./database.json');
     databaseLoad = true;
