@@ -6,7 +6,7 @@ module.exports.run = async (bot, msg, args, database) => {
         channelName,
         logMessage;
 
-    if (!(msg.guild.ownerID === msg.author.id)) return msg.reply('you don\'t have the permissions');
+    if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('you don\'t have the permissions');
 
     if (args.length < 2) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}create <name> [text/voice]`);
 

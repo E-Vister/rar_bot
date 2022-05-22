@@ -3,10 +3,19 @@ module.exports.createMutedRole = async (msg, database) => {
         data: {
             name: 'Muted',
             color: 'BLUE',
+            permissions: [],
         },
-        reason: 'guild haven no muted role',
+        reason: 'guild have no muted role',
     }).then((resolve) => {
         let rolesId = Array.from(msg.guild.roles.cache.keys());
+
+        msg.guild.channels.cache.forEach(async (channel, id) => {
+            await channel.updateOverwrite(resolve, {
+                SEND_MESSAGES: false,
+                ADD_REACTIONS: false,
+                SPEAK: false,
+            })
+        });
 
         if (rolesId[rolesId.length - 1] === resolve.id) {
             database.getGuildData(msg.guild).mutedRole.id = rolesId[rolesId.length - 1];
