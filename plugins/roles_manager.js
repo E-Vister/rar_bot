@@ -6,28 +6,28 @@ module.exports.createMutedRole = async (msg, database) => {
             permissions: [],
         },
         reason: 'guild have no muted role',
-    }).then((resolve) => {
+    }).then((role) => {
         let rolesId = Array.from(msg.guild.roles.cache.keys());
 
         msg.guild.channels.cache.forEach(async (channel, id) => {
-            await channel.updateOverwrite(resolve, {
+            await channel.updateOverwrite(role, {
                 SEND_MESSAGES: false,
                 ADD_REACTIONS: false,
                 SPEAK: false,
             })
         });
 
-        if (rolesId[rolesId.length - 1] === resolve.id) {
+        if (rolesId[rolesId.length - 1] === role.id) {
             database.getGuildData(msg.guild).mutedRole.id = rolesId[rolesId.length - 1];
-            return resolve;
+            return role;
         }
 
-        if (rolesId.length > 1 && (rolesId[rolesId.length - 2] === resolve.id)) {
+        if (rolesId.length > 1 && (rolesId[rolesId.length - 2] === role.id)) {
             database.getGuildData(msg.guild).mutedRole.id = rolesId[rolesId.length - 2];
-            return resolve;
+            return role;
         }
 
-        return resolve;
+        return role;
     });
 }
 
