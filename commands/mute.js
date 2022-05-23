@@ -7,11 +7,11 @@ module.exports.run = async (bot, msg, args, database) => {
     let role = msg.guild.roles.cache.find(r => r.id === database.getGuildData(msg.guild).mutedRole.id);
     let [toMute, muteTime, ...muteReason] = args;
 
-    toMute = await msg.mentions.members.first();
-
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply("you don't have the permissions");
 
-    if (Array.isArray(muteTime) && muteReason.length) {
+    toMute = await msg.mentions.members.first();
+
+    if (Array.isArray(muteReason) && muteReason.length) {
         muteReason = muteReason.join(" ");
     } else {
         muteReason = 'no reason';
@@ -59,7 +59,7 @@ module.exports.run = async (bot, msg, args, database) => {
 
             channel.send(embed);
 
-            setTimeout(() => {
+            let muteTimerId = setTimeout(() => {
                 let unmuteLogMessage = `${toMute.user.username} has been unmuted`;
 
                 toMute.roles.remove(role);
@@ -67,15 +67,17 @@ module.exports.run = async (bot, msg, args, database) => {
                 logger.log(unmuteLogMessage, {msg, database});
                 channel.delete();
             }, timeManager.ms(muteTime));
+
+            database.getGuildData(msg.guild).accounts[toMute.id] = muteTimerId;
         })
     }
 
-    let muteLogMessage = `mute ${toMute.user.username} for a ${muteTime}`;
+    let muteLogMessage = `muted ${toMute.user.username} for a ${muteTime} with a reason ${muteReason}`;
 
     logger.log(muteLogMessage, {msg, database});
 }
 
 module.exports.about = (bot, msg, args, database) => {
     return `mute a specific user for a certain time
-    ${database.getGuildData(msg.guild).prefix}mute <usertag> 1s/m/h/d`;
+    ${database.getGuildData(msg.guild).prefix}mute <@usertag> 1s/m/h/d [reason/no reason]`;
 }
