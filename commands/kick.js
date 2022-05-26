@@ -3,6 +3,7 @@ const logger = require(global.path + '/plugins/logger.js');
 module.exports.run = async (bot, msg, args, database) => {
     let [toKick, ...kickReason] = args;
 
+    //Not admin
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply("you don't have the permissions");
 
     toKick = await msg.mentions.members.first();
@@ -13,10 +14,13 @@ module.exports.run = async (bot, msg, args, database) => {
         kickReason = 'no reason';
     }
 
+    //Not enough values and kicked user not exists
     if (args.length < 1 || !toKick) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}kick <@${msg.author.id}>`);
 
+    //Cannot kick yourself
     if (toKick.id === msg.author.id) return msg.reply("can't kick yourself");
 
+    //Kicked user is admin
     if (toKick.hasPermission('ADMINISTRATOR')) return msg.reply("can't kick the administrator");
 
     toKick.kick(kickReason);

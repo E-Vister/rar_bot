@@ -6,3 +6,4 @@ module.exports.about = (bot, msg, args, database) => {
     return `bot greeting you
     ${database.getGuildData(msg.guild).prefix}hello`;
 }
+

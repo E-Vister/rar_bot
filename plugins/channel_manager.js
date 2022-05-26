@@ -1,4 +1,4 @@
-module.exports.checkName = (msg, args) => {
+module.exports.getChannel = (msg, args) => {
     if (typeof args != "object") args = args.split(" ");
     const { guild } = msg;
     return guild.channels.cache

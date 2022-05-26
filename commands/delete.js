@@ -2,32 +2,36 @@ const logger = require(global.path + '/plugins/logger.js');
 const channelManager = require(global.path + '/plugins/channel_manager.js');
 
 module.exports.run = async (bot, msg, args, database) => {
-    let prefix = database.getGuildData(msg.guild).prefix;
+    let channelToDelete;
 
+    //Not admin
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('you don\'t have the permissions');
 
-    if (args[0] === 'general' || args[0] === 'server-logs') {
+    //Don't have enough arguments
+    if (args.length < 1) return msg.reply(`Enter "${database.getGuildData(msg.guild).prefix}delete ${msg.channel.name}" to delete this channel`);
+
+    channelToDelete = channelManager.getChannel(msg, args)
+
+    //Cannot delete service channels
+    if (channelToDelete.name === 'general' || channelToDelete.name === 'server-logs') {
         msg.reply('You cannot delete that channel!');
         return;
     }
 
-    if (args[0]){
-        let logMessage = `deleted text channel -> "${args[0]}"`;
-
-        let channel = channelManager.checkName(msg, args);
-
-        if (!channel) {
-            msg.reply('That channel does not exist.')
-            return
-        }
-
-        channel.delete();
-
-        logger.log(logMessage, {msg, database});
+    //Channel doesn't exist
+    if (!channelToDelete) {
+        msg.reply('That channel does not exist.')
+        return
     }
-    else {
-        msg.channel.send(`Enter "${prefix}delete ${msg.channel.name}" to delete this channel`);
-    }
+
+    let logMessage = `deleted text channel -> "${channelToDelete}"`;
+
+    channelToDelete = channelManager.getChannel(msg, args);
+
+    channelToDelete.delete();
+
+    logger.log(logMessage, {msg, database});
+
 }
 
 module.exports.about = (bot, msg, args, database) => {

@@ -1,8 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 const commands_manager = require(global.path + '/plugins/commands_manager.js');
 const commands = commands_manager.get();
-//максимум 25 addField
-//сделать перемотку по реакциям
 
 module.exports.run = async (bot, msg, args, database) => {
 
@@ -11,12 +9,11 @@ module.exports.run = async (bot, msg, args, database) => {
         .setAuthor(msg.author.username, msg.author.avatarURL())
         .setTitle('Commands List');
 
-    for (let key of Object.keys(commands)){
-        embed.addField(key.toString(), commands[key].about(bot, msg, args, database));
+    for (let commandName of Object.keys(commands)){
+        embed.addField(commandName.toString(), commands[commandName].about(bot, msg, args, database));
     }
 
     await msg.channel.send(embed);
-
 }
 
 module.exports.about = (bot, msg, args, database) => {

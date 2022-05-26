@@ -1,10 +1,12 @@
 const channelManager = require(global.path + '/plugins/channel_manager.js');
 
 module.exports.run = async (bot, msg, args, database) => {
+    //Not admin
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('you don\'t have the permissions');
 
-    let channel = channelManager.checkName(msg, "server-logs");
+    let channel = channelManager.getChannel(msg, "server-logs");
 
+    //Creating service channel
     if (!channel) {
         msg.guild.channels.create("server-logs", {
             type: "text",

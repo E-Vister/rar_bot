@@ -3,6 +3,7 @@ const logger = require(global.path + '/plugins/logger.js');
 module.exports.run = async (bot, msg, args, database) => {
     let [toBan, ...banReason] = args;
 
+    //Not admin
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply("you don't have the permissions");
 
     toBan = await msg.mentions.members.first();
@@ -13,10 +14,13 @@ module.exports.run = async (bot, msg, args, database) => {
         banReason = 'no reason';
     }
 
+    //Not enough values and banned user not exists
     if (args.length < 1 || !toBan) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}ban <@${msg.author.id}>`);
 
+    //Cannot ban yourself
     if (toBan.id === msg.author.id) return msg.reply("can't ban yourself");
 
+    //Banned user is admin
     if (toBan.hasPermission('ADMINISTRATOR')) return msg.reply("can't ban the administrator");
 
     msg.guild.members.ban(toBan, {

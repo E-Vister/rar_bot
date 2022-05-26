@@ -6,8 +6,10 @@ module.exports.run = async (bot, msg, args, database) => {
         channelName,
         logMessage;
 
+    //Not admin
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('you don\'t have the permissions');
 
+    //Don't have enough arguments
     if (args.length < 2) return msg.reply(`Enter a message like: ${database.getGuildData(msg.guild).prefix}create <name> [text/voice]`);
 
     type = args.pop();
@@ -16,10 +18,12 @@ module.exports.run = async (bot, msg, args, database) => {
 
     channelName = args.reduce((previousValue, item) => previousValue + "-" + item);
 
+    //Channel name too short/long
     if (channelName.length > 100 && channelName.length < 1) return msg.reply("Channel's name must be between 1 and 100 in length!");
 
     logMessage = `created a new ${type} channel -> "${channelName}"`
 
+    //Creating 'Muted' role if it doesn't exist
     if (!rolesManager.isMutedRoleDefined(msg, database)) {
         await rolesManager.createMutedRole(msg, database);
     }

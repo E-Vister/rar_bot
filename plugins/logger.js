@@ -5,12 +5,14 @@ const {MessageEmbed} = require("discord.js");
 
 module.exports.log = async (logMessage, eventData) => {
     let formatedTime = timeManager.formatTime();
-    const channel = channelManager.checkName(eventData.msg, "server-logs");
+    const channel = channelManager.getChannel(eventData.msg, "server-logs");
     const logData = `${formatedTime} - "${eventData.msg.guild}" - "${eventData.msg.author.username}" (${eventData.msg.author.id}) ` + logMessage;
 
+    //log to the file
     fs.appendFileSync('./log.txt', logData + "\n");
 
-    if(channel && eventData.database.getGuildData(eventData.msg.guild).logging) {
+    //log to the text channel
+    if (channel && eventData.database.getGuildData(eventData.msg.guild).logging) {
         const embed = new MessageEmbed()
             .setColor('#0099ff')
             .setTitle(formatedTime)
@@ -20,3 +22,4 @@ module.exports.log = async (logMessage, eventData) => {
         channel.send(embed);
     }
 }
+

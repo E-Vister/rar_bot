@@ -11,7 +11,7 @@ const bot = new Discord.Client();
 let commands = {};
 let databaseLoad = false;
 
-
+// When bot is loaded
 bot.on('ready', () => {
     console.log(`Logged in as ${bot.user.tag}!`);
     console.log('https://discord.com/api/oauth2/authorize?client_id=977541756436508732&permissions=8&scope=bot\n');
@@ -21,13 +21,18 @@ bot.on('ready', () => {
     loadCommands('./commands');
 });
 
-
-bot.on('message', (msg) => { // React on the messages
+// React on the messages
+bot.on('message', (msg) => {
     let prefix = database.getGuildData(msg.guild).prefix;
 
+    //Message author is bot
     if (msg.author.bot) return;
+
+    //Default commands
     if (msg.content.toLowerCase() === 'bot prefix') prefix_manager.view(bot, msg, [], database);
     if (msg.content.toLowerCase() === 'set default prefix') prefix_manager.setDefault(bot, msg, [], database);
+
+    //Message have no prefix
     if (!msg.content.startsWith(prefix)) return;
 
     const commandBody = msg.content.slice(prefix.length);
@@ -41,12 +46,14 @@ bot.on('message', (msg) => { // React on the messages
     }
 });
 
+//When bot is closing
 process.on("SIGINT", () => {
     console.log('closing...');
     bot.destroy();
     if (databaseLoad) database.save('./database.json');
 });
 
+//Token load
 fs.readFile('./token.txt', (err, data) => {
     if (err) {
         console.error(err);
@@ -68,11 +75,3 @@ function loadCommands(path) {
 
     console.log("All commands successfully loaded!");
 }
-
-//https://gist.github.com/AlexzanderFlores
-//https://github.com/discordjs/discord.js/
-
-
-//https://anidiots.guide/understanding/roles/
-//https://discord.js.org/#/docs/main/stable/class/RoleManager?scrollTo=create
-//https://discordjs.guide/popular-topics/permissions.html#roles-as-bot-permissions

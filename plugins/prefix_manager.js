@@ -14,11 +14,11 @@ module.exports.setDefault = async (bot, msg, args, database) => {
 }
 
 module.exports.set = async (bot, msg, args, database) => {
-    let prefix = database.getGuildData(msg.guild).prefix;
-    let logMessage = `change prefix '${prefix}' -> '${args[0]}'`;
+    let newPrefix = args[0];
+    let logMessage = `change prefix '${database.getGuildData(msg.guild).prefix}' -> '${newPrefix}'`;
 
-    database.getGuildData(msg.guild).prefix = args[0];
-    msg.reply(`New prefix for the commands: '${args[0]}'`);
+    database.getGuildData(msg.guild).prefix = newPrefix;
+    msg.reply(`New prefix for the commands: '${newPrefix}'`);
 
     logger.log(logMessage, {msg, database});
 }
