@@ -14,7 +14,6 @@ let databaseLoad = false;
 // When bot is loaded
 bot.on('ready', () => {
     console.log(`Logged in as ${bot.user.tag}!`);
-    console.log('https://discord.com/api/oauth2/authorize?client_id=977541756436508732&permissions=8&scope=bot\n');
 
     database.load('./database.json');
     databaseLoad = true;
