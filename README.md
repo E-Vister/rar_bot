@@ -45,7 +45,9 @@ If you need any additional info, make sure to read our detailed installation gui
 Commands
 --------
 
-* `ban`, `kick`, `mute`, `unmute`, `logon`, `logoff`, `help`, `create`, `delete`, `prefix`, `ping`, `hello`, `bot prefix`, `set default prefix`
+* `ban`, `kick`, `mute`, `unmute`, `logon` 
+* `logoff`, `help`, `create`, `delete`, `prefix`
+* `ping`, `hello`, `bot prefix`, `set default prefix`
 
 Contacts
 --------
